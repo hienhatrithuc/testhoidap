@@ -1,118 +1,16 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bài Thi Trắc Nghiệm Luật Tố Tụng Hình Sự 2015</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f0f8ff;
-        }
-        .container {
-            max-width: 800px;
-            margin: auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-        .question {
-            margin-bottom: 20px;
-        }
-        .question h3 {
-            margin-bottom: 10px;
-        }
-        .question label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        .result {
-            display: none;
-            margin-top: 20px;
-            padding: 10px;
-            background: #e0ffe0;
-            border: 1px solid #green;
-            border-radius: 5px;
-            text-align: center;
-        }
-        .result p {
-            margin: 0;
-            font-size: 1.2em;
-        }
-        .btn-submit {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            background: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .btn-submit:hover {
-            background: #0056b3;
-        }
-    </style>
+    <title>Quiz App</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <div class="container">
-        <h1>Bài Thi Trắc Nghiệm Luật Tố Tụng Hình Sự 2015</h1>
-        <form id="quiz-form">
-            <!-- Câu hỏi sẽ được tải từ file JSON -->
-        </form>
-        <div class="result" id="result">
-            <p id="score"></p>
-        </div>
+    <div id="quiz-container">
+        <!-- Quiz content will be inserted here -->
     </div>
-
-    <script>
-        async function loadQuestions() {
-            const response = await fetch('https://hienhatrithuc.github.io/testhoidap/questions.json');
-            const questions = await response.json();
-            const form = document.getElementById('quiz-form');
-            questions.forEach((q, index) => {
-                const questionDiv = document.createElement('div');
-                questionDiv.classList.add('question');
-                const questionTitle = document.createElement('h3');
-                questionTitle.textContent = q.question;
-                questionDiv.appendChild(questionTitle);
-
-                q.options.forEach(option => {
-                    const label = document.createElement('label');
-                    label.innerHTML = `<input type="radio" name="q${index}" value="${option}"> ${option}`;
-                    questionDiv.appendChild(label);
-                });
-
-                form.appendChild(questionDiv);
-            });
-
-            const submitButton = document.createElement('button');
-            submitButton.type = 'button';
-            submitButton.classList.add('btn-submit');
-            submitButton.textContent = 'Nộp bài';
-            submitButton.onclick = submitQuiz;
-            form.appendChild(submitButton);
-        }
-
-        const correctAnswers = {};
-
-        async function loadAnswers() {
-            const response = await fetch('https://hienhatrithuc.github.io/testhoidap/questions.json');
-            const questions = await response.json();
-            questions.forEach((q, index) => {
-                correctAnswers[`q${index}`] = q.answer;
-            });
-        }
-
-        function submitQuiz() {
-            const form = document.getElementById('quiz-form');
-            let score = 0;
-            const formData = new FormData(form);
-
-            for (cons
+    
+    <script src="script.js"></script>
+</body>
+</html>
