@@ -1,0 +1,61 @@
+﻿<script>
+    async function loadQuestions() {
+        const response = await fetch('questions.json');
+        const questions = await response.json();
+        const form = document.getElementById('quiz-form');
+        questions.forEach((q, index) => {
+            const questionDiv = document.createElement('div');
+            questionDiv.classList.add('question');
+            const questionTitle = document.createElement('h3');
+            questionTitle.textContent = q.question;
+            questionDiv.appendChild(questionTitle);
+
+            q.options.forEach(option => {
+                const label = document.createElement('label');
+                label.innerHTML = `<input type="radio" name="q${index}" value="${option}"> ${option}`;
+                questionDiv.appendChild(label);
+            });
+
+            form.appendChild(questionDiv);
+        });
+
+        const submitButton = document.createElement('button');
+        submitButton.type = 'button';
+        submitButton.classList.add('btn-submit');
+        submitButton.textContent = 'Nộp bài';
+        submitButton.onclick = submitQuiz;
+        form.appendChild(submitButton);
+    }
+
+    const correctAnswers = {};
+
+    async function loadAnswers() {
+        const response = await fetch('questions.json');
+        const questions = await response.json();
+        questions.forEach((q, index) => {
+            correctAnswers[`q${index}`] = q.answer;
+        });
+    }
+
+    function submitQuiz() {
+        const form = document.getElementById('quiz-form');
+        let score = 0;
+        const formData = new FormData(form);
+
+        for (const [key, value] of formData.entries()) {
+            if (correctAnswers[key] === value) {
+                score++;
+            }
+        }
+
+        const totalQuestions = Object.keys(correctAnswers).length;
+        const resultDiv = document.getElementById('result');
+        const scoreText = document.getElementById('score');
+        scoreText.textContent = `Bạn đã trả lời đúng ${score} trên ${totalQuestions} câu.`;
+
+        resultDiv.style.display = 'block';
+    }
+
+    loadQuestions();
+    loadAnswers();
+</script>
