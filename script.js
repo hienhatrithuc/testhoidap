@@ -1,6 +1,6 @@
 $(document).ready(function() {
     // Load questions from JSON file
-    $.getJSON("questions.json", function(data) {
+    $.getJSON("https://hienhatrithuc.github.io/testhoidap/questions.json", function(data) {
         var quizContent = '';
         // Loop through each question
         $.each(data.questions, function(index, question) {
